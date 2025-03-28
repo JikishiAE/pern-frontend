@@ -1,54 +1,81 @@
-# React + TypeScript + Vite
+# Karlo - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend application for the Karlo project. It's built using React, Vite, and Tailwind CSS, providing a fast and modern user interface.
 
-Currently, two official plugins are available:
+## Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This frontend application is designed to interact with a backend (likely a PERN stack, as indicated by the directory structure `pern-frontend`). It focuses on delivering a responsive and visually appealing user experience.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+*   **React:** A JavaScript library for building user interfaces. It's used here to create a component-based architecture for the application.
+*   **Vite:** A build tool that aims to provide a faster and leaner development experience for modern web projects. It's used for development, building, and serving the application.
+*   **Tailwind CSS:** A utility-first CSS framework that allows for rapid UI development by providing a set of pre-defined CSS classes.
+*   **TypeScript:** (Implied) While not explicitly stated in the `vite.config.ts`, the `.ts` extension suggests that TypeScript is being used for type safety and improved code maintainability.
+* **Node.js and npm/yarn:** (Implied) These are the runtime environment and package manager used to run the project.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
+## Project Setup and Configuration
+
+### Prerequisites
+
+*   **Node.js:** Make sure you have Node.js (version 16 or higher recommended) installed on your system.
+*   **npm or yarn:** You'll need a package manager to install dependencies. npm comes with Node.js, or you can install yarn separately.
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repository-url>
+    ```
+2.  **Navigate to the project directory:**
+    ```bash
+    cd pern-frontend
+    ```
+3.  **Install dependencies:**
+    ```bash
+    npm install  # or yarn install
+    ```
+
+### Development
+
+1.  **Start the development server:**
+    ```bash
+    npm run dev # or yarn dev
+    ```
+    This will start a local development server, usually at `http://localhost:5173/`. Vite's hot module replacement (HMR) will automatically update the browser as you make changes to the code.
+
+### Building for Production
+
+1.  **Build the project:**
+    ```bash
+    npm run build # or yarn build
+    ```
+    This will create an optimized production build of the application in the `dist` directory.
+
+### Environment Variables
+
+*   **Location:** Environment variables are stored in files within the `./envs` directory.
+*   **Usage:** Vite automatically loads environment variables from files in the `envs` directory. You can access them in your code using `import.meta.env`.
+* **Example:**
+    * Create a file `envs/.env.development`
+    * Add a variable `VITE_URL_BACKEND=http://localhost:3000/api`
+    * Access it in your code: `const apiUrl = import.meta.env.VITE_URL_BACKEND`
+* **Important:** Remember to prefix your variables with `VITE_` to be accessible in the frontend.
+
+### vite.config.ts
+
+The `vite.config.ts` file is the main configuration file for Vite. Here's a breakdown of the current configuration:
+
+```typescript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+
+// https://vite.dev/config/
+export default defineConfig({
+  envDir: './envs', // Specifies the directory for environment variable files.
+  plugins: [
+    react(), // Enables React support in Vite.
+    tailwindcss(), // Enables Tailwind CSS support in Vite.
   ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
 })
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
