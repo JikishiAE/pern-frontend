@@ -1,6 +1,6 @@
-# Karlo - Frontend
+# PERN - Frontend
 
-This is the frontend application for the Karlo project. It's built using React, Vite, and Tailwind CSS, providing a fast and modern user interface.
+This is the frontend application for the pern project. It's built using React, Vite, and Tailwind CSS, providing a fast and modern user interface.
 
 ## Project Overview
 
